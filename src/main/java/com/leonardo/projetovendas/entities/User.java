@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,8 +15,8 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_user")
-public class User implements Serializable{
-    
+public class User implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,6 +25,7 @@ public class User implements Serializable{
     private String phone;
     private String password;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "client")
     private List<Order> orders = new ArrayList<>();
 
@@ -76,7 +79,6 @@ public class User implements Serializable{
     public void setPassword(String password) {
         this.password = password;
     }
-    
 
     @Override
     public int hashCode() {
