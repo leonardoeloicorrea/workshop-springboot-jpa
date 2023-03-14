@@ -2,6 +2,7 @@ package com.leonardo.projetovendas.entities;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.leonardo.projetovendas.entities.pk.OrderItemPK;
 
 import jakarta.persistence.EmbeddedId;
@@ -10,10 +11,10 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_order_item")
-public class OrderItem implements Serializable{
-    
+public class OrderItem implements Serializable {
+
     @EmbeddedId
-    private OrderItemPK id;
+    private OrderItemPK id = new OrderItemPK();
 
     private Integer quantity;
     private Double price;
@@ -28,9 +29,9 @@ public class OrderItem implements Serializable{
         this.price = price;
     }
 
+    @JsonIgnore
     public Order getOrder() {
         return id.getOrder();
-
     }
 
     public void setOrder(Order order) {
@@ -85,7 +86,5 @@ public class OrderItem implements Serializable{
             return false;
         return true;
     }
-
-    
 
 }
